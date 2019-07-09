@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '@/components/home/Home'
+import DashBoard from '@/components/dashboard/DashBoard'
 import Auth from '@/components/auth/Auth'
 
 import {userKey} from '@/global'
@@ -9,9 +9,9 @@ import {userKey} from '@/global'
 Vue.use(VueRouter)
 
 const routes = [{
-    name: 'home',
+    name: 'dashboard',
     path: '/',
-    component: Home
+    component: DashBoard
 }, {
     name: 'auth',
     path: '/auth',
@@ -23,15 +23,15 @@ const router = new VueRouter({
     routes
 })
 
-router.beforeEach((to, from, next) => {
-    const json = localStorage.getItem(userKey)
-
-    if (to.matched.some(record => record.meta.requiresAdmin)) {
-        const user = JSON.parse(json)
-        user && user.admin ? next() : next({path: '/'})
-    } else {
-        next()
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     const json = localStorage.getItem(userKey)
+//
+//     if (to.matched.some(record => record.meta.requiresAdmin)) {
+//         const user = JSON.parse(json)
+//         user && user.admin ? next() : next({path: '/'})
+//     } else {
+//         next()
+//     }
+// })
 
 export default router

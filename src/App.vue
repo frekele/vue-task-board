@@ -40,9 +40,10 @@
                     return
                 }
 
-                const res = await axios.post(`${baseApiUrl}/validate-token`, userData)
-
-                if (res.data) {
+                axios.defaults.headers.common['Authorization'] = `${userData.token}`
+                const response = await axios.post(`${baseApiUrl}/validate-token`, userData)
+                if (response.data) {
+                    userData.token = response.data.token
                     this.$store.commit('setUser', userData)
                 } else {
                     localStorage.removeItem(userKey)

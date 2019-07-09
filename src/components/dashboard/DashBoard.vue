@@ -1,9 +1,9 @@
 <template>
-    <div class="home">
+    <div class="dashboard">
         <PageTitle icon="fa fa-home" main="Dashboard"
                    sub="Tasks Board"/>
         <div class="boards">
-
+            <b-button variant="info">Criar Quadro</b-button>
         </div>
     </div>
 </template>
@@ -14,7 +14,7 @@
     import {baseApiUrl} from '@/global'
 
     export default {
-        name: 'Home',
+        name: 'DashBoard',
         components: {PageTitle},
         data: function () {
             return {
