@@ -78,6 +78,7 @@ Desktop.ini
 *.njsproj
 *.sln
 *.sw?
+
 ###################
 # local env files #
 ###################
