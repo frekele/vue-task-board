@@ -1,0 +1,80 @@
+######################
+#    Directories     #
+######################
+/.cargo/
+/target/
+/.idea/
+/.tmp/
+/dist/
+/vendor/
+/node_modules/
+/.settings/
+######################
+
+
+######################
+#       Files        #
+######################
+vue-task-board.iml
+.classpath
+.project
+######################
+
+
+######################
+#  Compiled Source   #
+######################
+*.class
+*.dll
+*.exe
+*.cache
+######################
+
+
+######################
+#      Packages      #
+######################
+# it’s better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+######################
+
+
+######################
+# OS generated files #
+######################
+*/.DS_Store
+.DS_Store
+.DS_Store?
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.lnk
+Desktop.ini
+######################
+
+
+######################
+# Logs and databases #
+######################
+*.log
+*.sqlite
+######################
+
+################################
+# Editor directories and files #
+################################
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
