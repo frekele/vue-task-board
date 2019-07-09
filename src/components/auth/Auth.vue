@@ -37,7 +37,7 @@
         },
         methods: {
             signin() {
-                this.$log( this.user)
+                this.$log(this.user)
                 axios.post(`${baseApiUrl}/sign-in`, this.user)
                     .then(res => {
                         this.$store.commit('setUser', res.data)
@@ -47,7 +47,7 @@
                     .catch(showError)
             },
             signup() {
-                this.$log( this.user)
+                this.$log(this.user)
                 axios.post(`${baseApiUrl}/sign-up`, this.user)
                     .then(() => {
                         this.$toasted.global.defaultSuccess()
