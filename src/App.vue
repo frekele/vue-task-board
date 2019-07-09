@@ -40,7 +40,7 @@
                     return
                 }
 
-                const res = await axios.post(`${baseApiUrl}/validateToken`, userData)
+                const res = await axios.post(`${baseApiUrl}/validate-token`, userData)
 
                 if (res.data) {
                     this.$store.commit('setUser', userData)
