@@ -15,6 +15,9 @@ import router from './config/router'
 
 Vue.config.productionTip = false
 
+// eslint-disable-next-line
+Vue.prototype.$log = console.log.bind(console)
+
 new Vue({
     store,
     router,

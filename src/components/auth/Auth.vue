@@ -6,10 +6,10 @@
             <hr>
             <div class="auth-title">{{ showSignup ? 'Cadastro' : 'Login' }}</div>
 
-            <input v-if="showSignup" v-model="user.name" type="text" placeholder="Nome">
-            <input v-model="user.email" name="email" type="text" placeholder="E-mail">
-            <input v-model="user.password" name="password" type="password" placeholder="Senha">
-            <input v-if="showSignup" v-model="user.confirmPassword"
+            <input id="name" v-if="showSignup" v-model="user.name" type="text" placeholder="Nome">
+            <input id="login" v-model="user.login" name="email" type="email" placeholder="E-mail">
+            <input id="password" v-model="user.password" name="password" type="password" placeholder="Senha">
+            <input id="confirmPassword" v-if="showSignup" v-model="user.confirmPassword"
                    type="password" placeholder="Confirme a Senha">
 
             <button v-if="showSignup" @click="signup">Registrar</button>
@@ -37,7 +37,8 @@
         },
         methods: {
             signin() {
-                axios.post(`${baseApiUrl}/signin`, this.user)
+                this.$log( this.user)
+                axios.post(`${baseApiUrl}/sign-in`, this.user)
                     .then(res => {
                         this.$store.commit('setUser', res.data)
                         localStorage.setItem(userKey, JSON.stringify(res.data))
@@ -46,7 +47,8 @@
                     .catch(showError)
             },
             signup() {
-                axios.post(`${baseApiUrl}/signup`, this.user)
+                this.$log( this.user)
+                axios.post(`${baseApiUrl}/sign-up`, this.user)
                     .then(() => {
                         this.$toasted.global.defaultSuccess()
                         this.user = {}
@@ -59,5 +61,4 @@
 </script>
 
 <style>
-
 </style>
