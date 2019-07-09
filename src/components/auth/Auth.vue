@@ -2,7 +2,7 @@
     <div class="auth-content">
         <div class="auth-modal">
             <h1>Task Board</h1>
-<!--            <img src="@/assets/logo.png" width="200" alt="Logo"/>-->
+
             <hr>
             <div class="auth-title">{{ showSignup ? 'Cadastro' : 'Login' }}</div>
 
