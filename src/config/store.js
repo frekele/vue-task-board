@@ -17,5 +17,7 @@ export default new Vuex.Store({
                 delete axios.defaults.headers.common['Authorization']
             }
         }
+    }, getters: {
+
     }
 })
