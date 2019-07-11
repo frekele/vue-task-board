@@ -6,7 +6,7 @@
         </router-link>
         <b-row>
             <b-col class="col-boards" cols="auto" md="auto" v-for="item in boards" v-bind:key="item.id">
-                <b-card class="card-boards" bg-variant="dark" text-variant="white" :title="item.name">
+                <b-card class="card-boards" bg-variant="secondary" text-variant="white" :title="item.name">
                     <b-card-text>
                         {{ item.description }}
                     </b-card-text>
