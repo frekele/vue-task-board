@@ -1,5 +1,5 @@
 <template>
-    <div class="new-board">
+    <div class="edit-new-board">
         <PageTitle icon="fa fa-th" main="Quadro de Tarefas" sub="Criar Novo Quadro de Tarefas" style="text-align: center"/>
 
         <b-container>
@@ -40,7 +40,7 @@
     import PageTitle from '../template/PageTitle'
 
     export default {
-        name: 'NewBoard',
+        name: 'EditBoard',
         components: {PageTitle},
         data: function () {
             return {

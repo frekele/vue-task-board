@@ -56,16 +56,4 @@
 </script>
 
 <style>
-    .boards {
-
-    }
-
-    .col-boards {
-        margin: 20px;
-    }
-
-    .card-boards {
-        max-width: 15em;
-    }
-
 </style>

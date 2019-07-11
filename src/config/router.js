@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Boards from '@/components/boards/Boards'
 
 import Board from '@/components/board/Board'
-import NewBoard from '@/components/board/NewBoard'
+import EditBoard from '@/components/board/EditBoard'
 
 import Column from '@/components/column/Column'
 import NewColumn from '@/components/column/NewColumn'
@@ -14,8 +14,6 @@ import NewTask from '@/components/task/NewTask'
 
 
 import Auth from '@/components/auth/Auth'
-
-import {userKey} from '@/global'
 
 Vue.use(VueRouter)
 
@@ -30,7 +28,11 @@ const routes = [{
 }, {
     name: 'new-board',
     path: '/new-board',
-    component: NewBoard
+    component: EditBoard
+},  {
+    name: 'edit-board',
+    path: '/edit-board',
+    component: EditBoard
 }, {
     name: 'column',
     path: '/column',

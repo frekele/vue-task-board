@@ -207,3 +207,14 @@ body {
     rgba(120, 120, 120, 0.75),
     rgba(120, 120, 120, 0));
 }
+
+.boards {
+}
+
+.col-boards {
+    margin: 20px;
+}
+
+.card-boards {
+    max-width: 15em;
+}
