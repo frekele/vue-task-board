@@ -9,9 +9,9 @@
 </template>
 
 <script>
-    import axios from "axios"
-    import {baseApiUrl, userKey} from "@/global"
-    import {mapState} from "vuex"
+    //import axios from "axios"
+    //import {baseApiUrl, userKey} from "@/global"
+    import {mapGetters} from "vuex"
     import Header from "@/components/template/Header"
     import Content from "@/components/template/Content"
     import Footer from "@/components/template/Footer"
@@ -20,37 +20,19 @@
     export default {
         name: "App",
         components: {Header, Content, Footer, Loading},
-        computed: mapState(['user']),
-        data: function () {
-            return {
-                validatingToken: true
-            }
+        computed: {
+            ...mapGetters('userModule', {
+                validatingToken: 'getValidatingToken',
+                user: 'getUser'
+            })
         },
         methods: {
             async validateToken() {
-                this.validatingToken = true
-
-                const json = localStorage.getItem(userKey)
-                const userData = JSON.parse(json)
-                this.$store.commit('setUser', null)
-
-                if (!userData) {
-                    this.validatingToken = false
-                    this.$router.push({name: 'auth'})
-                    return
-                }
-
-                axios.defaults.headers.common['Authorization'] = `${userData.token}`
-                const response = await axios.post(`${baseApiUrl}/validate-token`, userData)
-                if (response.data) {
-                    userData.token = response.data.token
-                    this.$store.commit('setUser', userData)
-                } else {
-                    localStorage.removeItem(userKey)
-                    this.$router.push({name: 'auth'})
-                }
-
-                this.validatingToken = false
+                this.$store.dispatch('userModule/validateToken', null).then((valid) => {
+                    if (!valid) {
+                        this.$router.push({name: 'auth'})
+                    }
+                })
             }
         },
         created() {

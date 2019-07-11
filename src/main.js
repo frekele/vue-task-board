@@ -10,7 +10,7 @@ import './config/axios'
 import './config/mq'
 import './config/draggable'
 
-import store from './config/store'
+import store from './store/store'
 import router from './config/router'
 
 Vue.config.productionTip = false
