@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import DashBoard from '@/components/dashboard/DashBoard'
+import Boards from '@/components/boards/Boards'
 
 import Board from '@/components/board/Board'
 import NewBoard from '@/components/board/NewBoard'
@@ -20,9 +20,9 @@ import {userKey} from '@/global'
 Vue.use(VueRouter)
 
 const routes = [{
-    name: 'dashboard',
+    name: 'boards',
     path: '/',
-    component: DashBoard
+    component: Boards
 }, {
     name: 'board',
     path: '/board',

@@ -1,6 +1,6 @@
 <template>
-    <div class="dashboard">
-        <PageTitle icon="fa fa-home" main="Dashboard"
+    <div class="boards">
+        <PageTitle icon="fa fa-home" main="boards"
                    sub="Tasks Board"/>
         <div class="boards">
             <router-link to="/new-board">
@@ -28,7 +28,7 @@
     import {baseApiUrl} from '@/global'
 
     export default {
-        name: 'DashBoard',
+        name: 'Boards',
         components: {PageTitle},
         data: function () {
             return {

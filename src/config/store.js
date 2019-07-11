@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        user: null
+        user: null,
+        board: null
     },
     mutations: {
         setUser(state, user) {
@@ -18,6 +19,11 @@ export default new Vuex.Store({
             }
         }
     }, getters: {
-
+        getUser() {
+            return this.user;
+        },
+        getBoard() {
+            return this.board;
+        }
     }
 })
