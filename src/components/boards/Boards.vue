@@ -1,24 +1,21 @@
 <template>
     <div class="boards">
-        <PageTitle icon="fa fa-home" main="boards"
-                   sub="Tasks Board"/>
-        <div class="boards">
-            <router-link to="/new-board">
-                <b-button variant="info">Criar Quadro</b-button>
-            </router-link>
-            <b-row>
-                <b-col cols="3" v-for="item in boards" v-bind:key="item.id">
-                    <b-card bg-variant="dark" text-variant="white" :title="item.name">
-                        <b-card-text>
-                            {{ item.description }}
-                        </b-card-text>
-                        <router-link :to="'/board/' + item.id">
-                            <b-button variant="primary">Abrir</b-button>
-                        </router-link>
-                    </b-card>
-                </b-col>
-            </b-row>
-        </div>
+        <PageTitle icon="fa fa-th" main="Quadros de Tarefa" sub=""/>
+        <router-link to="/new-board">
+            <b-button variant="info" style="margin: 20px">Criar Quadro</b-button>
+        </router-link>
+        <b-row>
+            <b-col class="col-boards" cols="auto" md="auto" v-for="item in boards" v-bind:key="item.id">
+                <b-card class="card-boards" bg-variant="dark" text-variant="white" :title="item.name">
+                    <b-card-text>
+                        {{ item.description }}
+                    </b-card-text>
+                    <router-link :to="'/board/' + item.id">
+                        <b-button variant="primary">Abrir</b-button>
+                    </router-link>
+                </b-card>
+            </b-col>
+        </b-row>
     </div>
 </template>
 
@@ -35,6 +32,7 @@
                 boards: {}
             }
         },
+        computed: {},
         methods: {
             async getBoards() {
                 axios.get(`${baseApiUrl}/board`)
@@ -58,4 +56,16 @@
 </script>
 
 <style>
+    .boards {
+
+    }
+
+    .col-boards {
+        margin: 20px;
+    }
+
+    .card-boards {
+        max-width: 15em;
+    }
+
 </style>

@@ -38,7 +38,7 @@
                     return this.$store.getters['userModule/getUser']
                 },
                 set(value) {
-                    this.$store.userModule.commit('setUser', value)
+                    this.$store.commit('userModule/setUser', value)
                 }
             }
         },

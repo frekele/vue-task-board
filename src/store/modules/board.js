@@ -1,16 +1,19 @@
-import axios from 'axios'
-
 const state = {
     board: []
 }
 
 const getters = {
-    getBoard(state, getters, rootState, rootGetters) {
+    getBoard(state) {
         return state.board;
     }
 }
 
-const mutations = {}
+const mutations = {
+    setBoard(state, payload) {
+        state.board = payload
+    }
+}
+
 
 const actions = {}
 
