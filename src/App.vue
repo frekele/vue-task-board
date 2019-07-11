@@ -9,8 +9,6 @@
 </template>
 
 <script>
-    //import axios from "axios"
-    //import {baseApiUrl, userKey} from "@/global"
     import {mapGetters} from "vuex"
     import Header from "@/components/template/Header"
     import Content from "@/components/template/Content"

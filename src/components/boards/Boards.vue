@@ -36,15 +36,23 @@
             }
         },
         methods: {
-            getBoards() {
-                axios.get(`${baseApiUrl}/board`).then(res => {
-                        this.boards = res.data
-                    }
-                )
+            async getBoards() {
+                axios.get(`${baseApiUrl}/board`)
+                    .then(response => {
+                            if (response && response.data) {
+                                this.boards = response.data
+                            }
+                        }
+                    )
             }
         },
         mounted() {
-            this.getBoards()
+            let user = this.$store.getters['userModule/getUser']
+            if (user && user.token) {
+                this.getBoards()
+            } else {
+                this.$router.push({name: 'auth'})
+            }
         }
     }
 </script>

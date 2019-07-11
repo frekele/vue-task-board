@@ -2,15 +2,15 @@ import axios from 'axios'
 import {baseApiUrl, userKey} from "@/global"
 
 const state = {
-    user: null,
+    user: {},
     validatingToken: true
 }
 
 const getters = {
-    getUser(state, getters, rootState, rootGetters) {
+    getUser(state) {
         return state.user;
     },
-    getValidatingToken(state, getters, rootState, rootGetters) {
+    getValidatingToken(state) {
         return state.validatingToken;
     }
 }
@@ -30,12 +30,12 @@ const mutations = {
 }
 
 const actions = {
-    async validateToken(context, payload) {
+    async validateToken(context) {
         return new Promise(async (resolve, reject) => {
             try {
                 context.commit('setValidatingToken', true)
                 const userData = JSON.parse(localStorage.getItem(userKey))
-                context.commit('setUser', null)
+                context.commit('setUser', {})
 
                 if (!userData || !userData.token) {
                     context.commit('setValidatingToken', false)
@@ -59,16 +59,37 @@ const actions = {
             }
         })
     },
-    logout(context, payload) {
+    signIn(context) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${baseApiUrl}/sign-in`, context.getters.getUser)
+                .then(response => {
+                    context.commit('setUser', response.data)
+                    localStorage.setItem(userKey, JSON.stringify(response.data))
+                    resolve()
+                })
+                .catch(reject)
+        })
+    },
+    signUp(context) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${baseApiUrl}/sign-up`, context.getters.getUser)
+                .then(() => {
+                    localStorage.removeItem(userKey)
+                    context.commit('setUser', {})
+                    resolve()
+                })
+                .catch(reject)
+        })
+    },
+    logout(context) {
         return new Promise((resolve, reject) => {
             try {
                 localStorage.removeItem(userKey)
-                context.commit('setUser', null)
+                context.commit('setUser', {})
                 resolve()
             } catch (e) {
                 reject(e)
             }
-
         })
     }
 }
