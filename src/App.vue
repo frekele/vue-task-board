@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Header title="Task Board"
-                :hideUserDropdown="!user"/>
+                :hideUserDropdown="!user.token"/>
         <Loading v-if="validatingToken"/>
         <Content v-else/>
         <Footer/>

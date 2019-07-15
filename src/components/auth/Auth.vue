@@ -51,7 +51,7 @@
                     .catch(showError)
             },
             signUp() {
-                this.$store.dispatch('userModule/signIn', null)
+                this.$store.dispatch('userModule/signUp', null)
                     .then(() => {
                         this.$toasted.global.defaultSuccess()
                         this.showSignup = false
