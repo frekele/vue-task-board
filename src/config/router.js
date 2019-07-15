@@ -23,7 +23,7 @@ const routes = [{
     component: Boards
 }, {
     name: 'board',
-    path: '/board',
+    path: '/board/:id',
     component: Board
 }, {
     name: 'new-board',
