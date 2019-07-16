@@ -50,6 +50,7 @@ body {
 /*PageTitle*/
 .page-title h1 {
     margin: 0px;
+    text-align: center;
 }
 
 .page-title h2 {
