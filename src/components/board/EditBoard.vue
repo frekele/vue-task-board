@@ -3,7 +3,7 @@
         <PageTitle icon="fa fa-th" :main="mainTitle" :sub="subTitle" style="text-align: center"/>
 
         <b-container>
-            <b-form v-if="show">
+            <b-form @submit.stop.prevent v-if="show">
                 <b-form-group
                         id="board-name-group"
                         label="Nome do Quadro:"
@@ -11,9 +11,10 @@
                         description="Use um nome curto de preferência!">
                     <b-form-input
                             id="board-name"
-                            v-model="board.name"
+                            v-model.trim="board.name"
                             type="text"
                             required
+                            max="50"
                             placeholder="Digite o nome do quadro de tarefas"
                     ></b-form-input>
                 </b-form-group>
@@ -24,6 +25,7 @@
                             v-model="board.description"
                             placeholder="Digite alguma coisa..."
                             rows="3"
+                            max="250"
                             max-rows="250"
                     ></b-form-textarea>
                 </b-form-group>
