@@ -1,38 +1,38 @@
 <template>
-    <div class="edit-new-board">
-        <PageTitle icon="fa fa-th" :main="mainTitle" :sub="subTitle" style="text-align: center"/>
+    <div class="edit-new-task">
+        <PageTitle icon="fa fa-check-square-o" :main="mainTitle" :sub="subTitle" style="text-align: center"/>
 
         <b-container>
             <b-form @submit.stop.prevent v-if="show">
                 <b-form-group
-                        id="board-name-group"
-                        label="Nome do Quadro:"
-                        label-for="board-name">
+                        id="task-name-group"
+                        label="Nome da Tarefa:"
+                        label-for="task-name">
                     <b-form-input
-                            id="board-name"
-                            v-model.trim="board.name"
+                            id="task-name"
+                            v-model.trim="task.name"
                             type="text"
                             :state="validation('name')"
-                            placeholder="Digite o nome do quadro de tarefas"
+                            placeholder="Digite o nome da tarefas"
                     ></b-form-input>
                     <b-form-invalid-feedback :state="validation('name')">
-                        O Nome deve conter de 3 a 25 caracteres.
+                        O Nome deve conter de 3 a 40 caracteres.
                     </b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group id="board-description-group" label="Descrição:" label-for="board-description">
+                <b-form-group id="task-description-group" label="Descrição da Tarefa:" label-for="task-description">
                     <b-form-textarea
-                            id="board-description"
-                            v-model="board.description"
+                            id="task-description"
+                            v-model="task.description"
                             placeholder="Digite alguma coisa..."
-                            rows="3"
-                            max-rows="50"
+                            rows="4"
+                            max-rows="250"
                     ></b-form-textarea>
                 </b-form-group>
                 <hr>
                 <b-row>
                     <b-col>
-                        <router-link :to="isNewBoard ? '/' : '/board/' + id ">
+                        <router-link :to="'/board/' + boardId">
                             <b-button @click="confirmed = true" variant="secondary">
                                 <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Voltar
                             </b-button>
@@ -43,14 +43,14 @@
                         <b-button type="reset"
                                   class="float-right"
                                   @click.prevent="clear"
-                                  v-if="isNewBoard"
+                                  v-if="isNewTask"
                                   variant="danger">
                             <span><i class="fa fa-eraser" aria-hidden="true"></i> Limpar</span>
                         </b-button>
                         <b-button type="submit"
                                   class="float-right"
                                   @click.prevent="remove"
-                                  v-if="!isNewBoard"
+                                  v-if="!isNewTask"
                                   variant="danger">
                             <span><i class="fa fa-times" aria-hidden="true"></i> Excluir</span>
                         </b-button>
@@ -70,12 +70,13 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex"
     import PageTitle from '../template/PageTitle'
 
     export default {
-        name: 'EditBoard',
+        name: 'EditTask',
         components: {PageTitle},
-        props: ['id'],
+        props: ['boardId', 'columnId', 'id'],
         data: function () {
             return {
                 show: true,
@@ -83,21 +84,24 @@
             }
         },
         computed: {
-            isNewBoard() {
+            ...mapGetters('userModule', {
+                user: 'getUser'
+            }),
+            isNewTask() {
                 return !this.id;
             },
             mainTitle() {
-                return 'Quadro de Tarefas'
+                return 'Tarefa'
             },
             subTitle() {
-                return this.isNewBoard ? 'Criar Novo Quadro de Tarefas' : ('Editar Quadro de Tarefas #' + this.id)
+                return this.isNewTask ? 'Criar Nova Tarefas' : ('Editar Tarefa #' + this.id)
             },
-            board: {
+            task: {
                 get() {
-                    return this.$store.getters['boardModule/getBoard']
+                    return this.$store.getters['taskModule/getTask']
                 },
                 set(value) {
-                    this.$store.commit('boardModule/setBoard', value)
+                    this.$store.commit('taskModule/setTask', value)
                 }
             }
         },
@@ -105,14 +109,14 @@
             validation(fieldName) {
                 switch (fieldName) {
                     case 'name':
-                        if (this.board.name) {
-                            return this.board.name.length > 3 && this.board.name.length <= 25
+                        if (this.task.name) {
+                            return this.task.name.length > 3 && this.task.name.length <= 40
                         } else {
                             return false;
                         }
                     case 'description':
-                        if (this.board.description) {
-                            return this.board.description.length >= 0 && this.board.description.length <= 50
+                        if (this.task.description) {
+                            return this.task.description.length >= 0 && this.task.description.length <= 250
                         } else {
                             return null;
                         }
@@ -123,12 +127,11 @@
             save(event) {
                 event.preventDefault()
                 this.confirmed = true
-                //alert(JSON.stringify(this.board))
-                if (this.isNewBoard) {
-                    this.insertBoard()
-                    this.$router.push({path: '/'})
+                if (this.isNewTask) {
+                    this.insertTask()
+                    this.$router.push({path: '/board/' + this.boardId})
                 } else {
-                    this.updateBoard()
+                    this.updateTask()
                 }
 
             },
@@ -148,9 +151,9 @@
                     .then(value => {
                         if (value) {
                             this.confirmed = true
-                            if (!this.isNewBoard) {
-                                this.deleteBoard()
-                                this.$router.push({path: '/'})
+                            if (!this.isNewTask) {
+                                this.deleteTask()
+                                this.$router.push({path: '/board/' + this.boardId})
                             }
                         }
                     })
@@ -160,28 +163,28 @@
             },
             clear(event) {
                 event.preventDefault()
-                this.board = {}
+                this.task = {}
                 this.show = false
                 this.confirmed = false
                 this.$nextTick(() => {
                     this.show = true
                 })
             },
-            loadBoard() {
-                this.$store.dispatch('boardModule/loadBoard', {id: this.id}).then()
+            loadTask() {
+                this.$store.dispatch('taskModule/loadTask', {id: this.id}).then()
             },
-            insertBoard() {
-                this.$store.dispatch('boardModule/insertBoard').then(() => {
+            insertTask() {
+                this.$store.dispatch('taskModule/insertTask').then(() => {
                     this.$toasted.global.defaultSuccess({msg: this.mainTitle + ' inserido com Sucesso!'})
                 })
             },
-            updateBoard() {
-                this.$store.dispatch('boardModule/updateBoard').then(() => {
+            updateTask() {
+                this.$store.dispatch('taskModule/updateTask').then(() => {
                     this.$toasted.global.defaultSuccess({msg: this.mainTitle + ' #' + this.id + ' Alterado com Sucesso!'})
                 })
             },
-            deleteBoard() {
-                this.$store.dispatch('boardModule/deleteBoard', {id: this.id}).then(() => {
+            deleteTask() {
+                this.$store.dispatch('taskModule/deleteTask', {id: this.id}).then(() => {
                     this.$toasted.global.defaultSuccess({msg: this.mainTitle + ' #' + this.id + ' Excluido com Sucesso!'})
                 })
             }
@@ -198,10 +201,16 @@
             }
         },
         mounted() {
-            this.board = {}
-            if (!this.isNewBoard) {
-                this.loadBoard()
+            this.task = {}
+            if (!this.isNewTask) {
+                this.loadTask()
+            } else {
+                this.task.weight = 1
+                this.task.assignedUserId = this.user.id
+                this.task.assignedUserName = this.user.name
             }
+            this.task.boardId = this.boardId
+            this.task.columnId = this.columnId
         }
     }
 </script>

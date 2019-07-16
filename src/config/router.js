@@ -6,56 +6,57 @@ import Boards from '@/components/boards/Boards'
 import Board from '@/components/board/Board'
 import EditBoard from '@/components/board/EditBoard'
 
-import Column from '@/components/column/Column'
-import NewColumn from '@/components/column/NewColumn'
-
-import Task from '@/components/task/Task'
-import NewTask from '@/components/task/NewTask'
-
+import EditTask from '@/components/task/EditTask'
 
 import Auth from '@/components/auth/Auth'
 
 Vue.use(VueRouter)
 
-const routes = [{
-    name: 'boards',
-    path: '/',
-    component: Boards
-}, {
-    name: 'board',
-    path: '/board/:id',
-    component: Board,
-    props: true
-}, {
-    name: 'new-board',
-    path: '/new-board',
-    component: EditBoard
-},  {
-    name: 'edit-board',
-    path: '/edit-board/:id',
-    component: EditBoard,
-    props: true
-}, {
-    name: 'column',
-    path: '/column',
-    component: Column
-}, {
-    name: 'new-column',
-    path: '/new-column',
-    component: NewColumn
-}, {
-    name: 'task',
-    path: '/task',
-    component: Task
-}, {
-    name: 'new-task',
-    path: '/new-task',
-    component: NewTask
-}, {
-    name: 'auth',
-    path: '/auth',
-    component: Auth
-}]
+const routes = [
+    {
+        name: 'boards',
+        path: '/',
+        component: Boards
+    },
+    {
+        name: 'board',
+        path: '/board/:id',
+        component: Board,
+        props: true
+    },
+    {
+        name: 'new-board',
+        path: '/new-board',
+        component: EditBoard
+    },
+    {
+        name: 'edit-board',
+        path: '/edit-board/:id',
+        component: EditBoard,
+        props: true
+    },
+    {
+        name: 'new-task',
+        path: '/board/:boardId/column/:columnId/new-task',
+        component: EditTask,
+        props: true
+    },
+    {
+        name: 'edit-task',
+        path: '/board/:boardId/column/:columnId/edit-task/:id',
+        component: EditTask,
+        props: true
+    },
+    {
+        name: 'auth',
+        path: '/auth',
+        component: Auth
+    },
+    {
+        path: '*',
+        redirect: '/'
+    },
+]
 
 const router = new VueRouter({
     mode: 'history',
