@@ -32,8 +32,9 @@ const routes = [{
     component: EditBoard
 },  {
     name: 'edit-board',
-    path: '/edit-board',
-    component: EditBoard
+    path: '/edit-board/:id',
+    component: EditBoard,
+    props: true
 }, {
     name: 'column',
     path: '/column',

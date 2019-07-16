@@ -2,7 +2,7 @@
     <div id="app">
         <Header title="Task Board"
                 :hideUserDropdown="!user.token"/>
-        <Loading v-if="validatingToken"/>
+        <Loading v-if="validatingToken || waitingForResponse"/>
         <Content v-else/>
         <Footer/>
     </div>
@@ -22,6 +22,9 @@
             ...mapGetters('userModule', {
                 validatingToken: 'getValidatingToken',
                 user: 'getUser'
+            }),
+            ...mapGetters('boardModule', {
+                waitingForResponse: 'getWaitingForResponse'
             })
         },
         methods: {

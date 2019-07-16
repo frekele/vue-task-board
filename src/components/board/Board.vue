@@ -1,8 +1,23 @@
 <template>
     <div class="board">
-        <div>User: {{ $route.params.id }}</div>
+        <b-container fluid>
+            <b-row>
+                <b-col>
+                    <div class="page-title">
+                        <h1><i class="fa fa-th"></i> {{board.name}}</h1>
+                        <h2>{{board.description}}</h2>
+                    </div>
+                </b-col>
 
+                <b-col>
+                    <router-link :to="'/edit-board/'+ id">
+                        <b-button variant="warning" class="float-right">Editar</b-button>
+                    </router-link>
+                </b-col>
+            </b-row>
+        </b-container>
         <hr>
+
 
         <div class="card-scene">
             <Container
@@ -149,16 +164,16 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                 console.log('drag started')
             },
             log(...params) {
-                console.log('log(...params):',...params)
+                console.log('log(...params):', ...params)
             },
-            async loadFullBoard() {
-                this.$store.dispatch('boardModule/loadFullBoard', {id: this.id}).then(() => {
+            async loadEagerFullBoard() {
+                this.$store.dispatch('boardModule/loadEagerFullBoard', {id: this.id}).then(() => {
                     console.log('...adsadsa')
                 })
             }
         },
         mounted() {
-            this.loadFullBoard();
+            this.loadEagerFullBoard();
         }
 
     }
