@@ -2,7 +2,9 @@
     <div class="boards">
         <PageTitle icon="fa fa-th" main="Quadros de Tarefa" sub=""/>
         <router-link to="/new-board">
-            <b-button variant="info" style="margin: 20px">Criar Quadro</b-button>
+            <b-button variant="info" style="margin: 20px">
+                <i class="fa fa-plus" aria-hidden="true"></i> Novo Quadro
+            </b-button>
         </router-link>
         <b-row>
             <b-col class="col-boards" cols="auto" md="auto" v-for="item in boards" v-bind:key="item.id">
