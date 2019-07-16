@@ -1,6 +1,9 @@
 <template>
     <div class="loading">
-        <img src="@/assets/loading.gif" alt="Loading">
+        <div>
+            <b-spinner class="loading-spinner-size" variant="primary" label="Spinning"></b-spinner>
+            <strong class="loading-spinner-text-size">Carregando...</strong>
+        </div>
     </div>
 </template>
 

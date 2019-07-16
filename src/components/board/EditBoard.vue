@@ -3,7 +3,7 @@
         <PageTitle icon="fa fa-th" :main="mainTitle" :sub="subTitle" style="text-align: center"/>
 
         <b-container>
-            <b-form @submit.prevent="onSubmit" @reset.prevent="onReset" v-if="show">
+            <b-form v-if="show">
                 <b-form-group
                         id="board-name-group"
                         label="Nome do Quadro:"
@@ -28,13 +28,13 @@
                     ></b-form-textarea>
                 </b-form-group>
                 <hr>
-                <b-button type="submit" @click="confirmou = true" variant="primary" style="margin-right: 10px">
+                <b-button type="submit" @click.prevent="save" variant="primary" style="margin-right: 10px">
                     <span>Salvar</span>
                 </b-button>
-                <b-button type="submit" v-if="!isNewBoard" variant="danger">
+                <b-button type="submit" @click.prevent="remove" v-if="!isNewBoard" variant="danger">
                     <span>Excluir</span>
                 </b-button>
-                <b-button type="reset" v-if="isNewBoard" variant="danger">
+                <b-button type="reset" @click.prevent="clear" v-if="isNewBoard" variant="danger">
                     <span>Limpar</span>
                 </b-button>
             </b-form>
@@ -52,7 +52,7 @@
         data: function () {
             return {
                 show: true,
-                confirmou: false
+                confirmed: false
             }
         },
         computed: {
@@ -75,12 +75,23 @@
             }
         },
         methods: {
-            onSubmit(event) {
+            save(event) {
                 event.preventDefault()
+                this.confirmed = true
                 alert(JSON.stringify(this.board))
-                this.$router.push({path: '/'})
+                //if (this.isNewBoard) {
+                //    this.insertBoard()
+                //} else {
+                //    this.updateBoard()
+                //}
+
+                //this.$router.push({path: '/'})
             },
-            onReset(event) {
+            remove(event) {
+                event.preventDefault()
+                this.confirmed = true
+            },
+            clear(event) {
                 event.preventDefault()
                 this.board = {}
                 this.show = false
@@ -99,7 +110,7 @@
             }
         },
         beforeRouteLeave(to, from, next) {
-            if (this.confirmou) {
+            if (this.confirmed) {
                 next()
             } else {
                 if (confirm('Tem certeza?')) {

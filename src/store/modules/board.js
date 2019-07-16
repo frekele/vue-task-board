@@ -43,14 +43,19 @@ const actions = {
         })
     },
     loadBoard(context, payload) {
+        context.commit('setWaitingForResponse', true)
         context.commit('setBoard', {})
         return new Promise((resolve, reject) => {
             axios.get(`${baseApiUrl}/board/${payload.id}`)
                 .then(response => {
                     context.commit('setBoard', response.data)
+                    context.commit('setWaitingForResponse', false)
                     resolve()
                 })
-                .catch(reject)
+                .catch(error => {
+                    context.commit('setWaitingForResponse', false)
+                    reject(error)
+                })
         })
     },
     insertBoard(context) {
@@ -58,9 +63,13 @@ const actions = {
             axios.post(`${baseApiUrl}/board`, context.getters.getBoard)
                 .then(response => {
                     context.commit('setBoard', response.data)
+                    context.commit('setWaitingForResponse', false)
                     resolve()
                 })
-                .catch(reject)
+                .catch(error => {
+                    context.commit('setWaitingForResponse', false)
+                    reject(error)
+                })
         })
     },
     updateBoard(context) {
@@ -69,9 +78,13 @@ const actions = {
             axios.post(`${baseApiUrl}/board/${board.id}`, board)
                 .then(response => {
                     context.commit('setBoard', response.data)
+                    context.commit('setWaitingForResponse', false)
                     resolve()
                 })
-                .catch(reject)
+                .catch(error => {
+                    context.commit('setWaitingForResponse', false)
+                    reject(error)
+                })
         })
     },
 }
