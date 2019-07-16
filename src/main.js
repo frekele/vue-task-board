@@ -5,7 +5,7 @@ import Vue from 'vue'
 import App from './App'
 
 import './config/bootstrap'
-import './config/msgs'
+import './config/toasted'
 import './config/axios'
 import './config/mq'
 import './config/vuelidate'

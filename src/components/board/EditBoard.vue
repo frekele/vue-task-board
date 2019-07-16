@@ -7,16 +7,17 @@
                 <b-form-group
                         id="board-name-group"
                         label="Nome do Quadro:"
-                        label-for="board-name"
-                        description="Use um nome curto de preferência!">
+                        label-for="board-name">
                     <b-form-input
                             id="board-name"
                             v-model.trim="board.name"
                             type="text"
-                            required
-                            max="50"
+                            :state="validation('name')"
                             placeholder="Digite o nome do quadro de tarefas"
                     ></b-form-input>
+                    <b-form-invalid-feedback :state="validation('name')">
+                        O Nome deve conter de 3 a 25 caracteres.
+                    </b-form-invalid-feedback>
                 </b-form-group>
 
                 <b-form-group id="board-description-group" label="Descrição:" label-for="board-description">
@@ -25,20 +26,45 @@
                             v-model="board.description"
                             placeholder="Digite alguma coisa..."
                             rows="3"
-                            max="250"
-                            max-rows="250"
+                            max-rows="50"
                     ></b-form-textarea>
                 </b-form-group>
                 <hr>
-                <b-button type="submit" @click.prevent="save" variant="primary" style="margin-right: 10px">
-                    <span>Salvar</span>
-                </b-button>
-                <b-button type="submit" @click.prevent="remove" v-if="!isNewBoard" variant="danger">
-                    <span>Excluir</span>
-                </b-button>
-                <b-button type="reset" @click.prevent="clear" v-if="isNewBoard" variant="danger">
-                    <span>Limpar</span>
-                </b-button>
+                <b-row>
+                    <b-col>
+                        <router-link :to="isNewBoard ? '/' : '/board/' + id ">
+                            <b-button variant="secondary">
+                                <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Voltar
+                            </b-button>
+                        </router-link>
+                    </b-col>
+
+                    <b-col>
+                        <b-button type="reset"
+                                  class="float-right"
+                                  @click.prevent="clear"
+                                  v-if="isNewBoard"
+                                  variant="danger">
+                            <span>Limpar</span>
+                        </b-button>
+                        <b-button type="submit"
+                                  class="float-right"
+                                  @click.prevent="remove"
+                                  v-if="!isNewBoard"
+                                  variant="danger">
+                            <span>Excluir</span>
+                        </b-button>
+                        <b-button type="submit"
+                                  class="float-right"
+                                  @click.prevent="save"
+                                  :disabled="!validation('name')"
+                                  variant="primary"
+                                  style="margin-right: 10px">
+                            <span>Salvar</span>
+                        </b-button>
+                    </b-col>
+
+                </b-row>
             </b-form>
         </b-container>
     </div>
@@ -77,26 +103,49 @@
             }
         },
         methods: {
+            validation(fieldName) {
+                switch (fieldName) {
+                    case 'name':
+                        if (this.board.name) {
+                            return this.board.name.length > 3 && this.board.name.length <= 25
+                        } else {
+                            return false;
+                        }
+                    case 'description':
+                        if (this.board.description) {
+                            return this.board.description.length >= 0 && this.board.description.length <= 50
+                        } else {
+                            return null;
+                        }
+                    default:
+                        throw new Error("Nome do campo incorreto.")
+                }
+            },
             save(event) {
                 event.preventDefault()
                 this.confirmed = true
-                alert(JSON.stringify(this.board))
-                //if (this.isNewBoard) {
-                //    this.insertBoard()
-                //} else {
-                //    this.updateBoard()
-                //}
+                //alert(JSON.stringify(this.board))
+                if (this.isNewBoard) {
+                    this.insertBoard()
+                    this.$router.push({path: '/'})
+                } else {
+                    this.updateBoard()
+                }
 
-                //this.$router.push({path: '/'})
             },
             remove(event) {
                 event.preventDefault()
                 this.confirmed = true
+                if (!this.isNewBoard) {
+                    this.deleteBoard()
+                    this.$router.push({path: '/'})
+                }
             },
             clear(event) {
                 event.preventDefault()
                 this.board = {}
                 this.show = false
+                this.confirmed = false
                 this.$nextTick(() => {
                     this.show = true
                 })
@@ -105,10 +154,19 @@
                 this.$store.dispatch('boardModule/loadBoard', {id: this.id}).then()
             },
             insertBoard() {
-                this.$store.dispatch('boardModule/insertBoard').then()
+                this.$store.dispatch('boardModule/insertBoard').then(() => {
+                    this.$toasted.global.defaultSuccess({msg: this.mainTitle + ' inserido com Sucesso!'})
+                })
             },
             updateBoard() {
-                this.$store.dispatch('boardModule/updateBoard').then()
+                this.$store.dispatch('boardModule/updateBoard').then(() => {
+                    this.$toasted.global.defaultSuccess({msg: this.mainTitle + ' #' + this.id + ' Alterado com Sucesso!'})
+                })
+            },
+            deleteBoard() {
+                this.$store.dispatch('boardModule/deleteBoard', {id: this.id}).then(() => {
+                    this.$toasted.global.defaultSuccess({msg: this.mainTitle + ' #' + this.id + ' Excluido com Sucesso!'})
+                })
             }
         },
         beforeRouteLeave(to, from, next) {
@@ -123,9 +181,8 @@
             }
         },
         mounted() {
-            if (this.isNewBoard) {
-                this.board = {}
-            } else {
+            this.board = {}
+            if (!this.isNewBoard) {
                 this.loadBoard()
             }
         }

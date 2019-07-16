@@ -59,6 +59,7 @@ const actions = {
         })
     },
     insertBoard(context) {
+        context.commit('setWaitingForResponse', true)
         return new Promise((resolve, reject) => {
             axios.post(`${baseApiUrl}/board`, context.getters.getBoard)
                 .then(response => {
@@ -73,9 +74,10 @@ const actions = {
         })
     },
     updateBoard(context) {
+        context.commit('setWaitingForResponse', true)
         return new Promise((resolve, reject) => {
             let board = context.getters.getBoard
-            axios.post(`${baseApiUrl}/board/${board.id}`, board)
+            axios.put(`${baseApiUrl}/board/${board.id}`, board)
                 .then(response => {
                     context.commit('setBoard', response.data)
                     context.commit('setWaitingForResponse', false)
@@ -87,6 +89,21 @@ const actions = {
                 })
         })
     },
+    deleteBoard(context, payload) {
+        context.commit('setWaitingForResponse', true)
+        return new Promise((resolve, reject) => {
+            axios.delete(`${baseApiUrl}/board/${payload.id}`)
+                .then(response => {
+                    context.commit('setBoard', {})
+                    context.commit('setWaitingForResponse', false)
+                    resolve()
+                })
+                .catch(error => {
+                    context.commit('setWaitingForResponse', false)
+                    reject(error)
+                })
+        })
+    }
 }
 
 export default {
