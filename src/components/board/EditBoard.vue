@@ -45,14 +45,14 @@
                                   @click.prevent="clear"
                                   v-if="isNewBoard"
                                   variant="danger">
-                            <span>Limpar</span>
+                            <span><i class="fa fa-eraser" aria-hidden="true"></i> Limpar</span>
                         </b-button>
                         <b-button type="submit"
                                   class="float-right"
                                   @click.prevent="remove"
                                   v-if="!isNewBoard"
                                   variant="danger">
-                            <span>Excluir</span>
+                            <span><i class="fa fa-times" aria-hidden="true"></i> Excluir</span>
                         </b-button>
                         <b-button type="submit"
                                   class="float-right"
@@ -60,10 +60,9 @@
                                   :disabled="!validation('name')"
                                   variant="primary"
                                   style="margin-right: 10px">
-                            <span>Salvar</span>
+                            <span><i class="fa fa-check" aria-hidden="true"></i> Salvar</span>
                         </b-button>
                     </b-col>
-
                 </b-row>
             </b-form>
         </b-container>
@@ -80,7 +79,8 @@
         data: function () {
             return {
                 show: true,
-                confirmed: false
+                confirmed: false,
+                boxTwo: ''
             }
         },
         computed: {
@@ -135,11 +135,29 @@
             },
             remove(event) {
                 event.preventDefault()
-                this.confirmed = true
-                if (!this.isNewBoard) {
-                    this.deleteBoard()
-                    this.$router.push({path: '/'})
-                }
+                this.$bvModal.msgBoxConfirm('Você tem certeza que deseja excluir o quadro de tarefas?', {
+                    titleHtml: '<i class="fa fa-question-circle" aria-hidden="true"></i> Confirmação',
+                    size: 'sm',
+                    buttonSize: 'sm',
+                    okVariant: 'danger',
+                    okTitle: 'SIM',
+                    cancelTitle: 'NÃO',
+                    footerClass: 'p-3',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                    .then(value => {
+                        if (value) {
+                            this.confirmed = true
+                            if (!this.isNewBoard) {
+                                this.deleteBoard()
+                                this.$router.push({path: '/'})
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        // An error occurred
+                    })
             },
             clear(event) {
                 event.preventDefault()

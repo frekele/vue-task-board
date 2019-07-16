@@ -32,6 +32,9 @@ const actions = {
         return new Promise(async (resolve, reject) => {
             axios.get(`${baseApiUrl}/board/${payload.id}?eager=true`)
                 .then(response => {
+                    //Ordena columns por weight ASC;
+                    if (response.data.columns)
+                        response.data.columns = response.data.columns.sort((a, b) => a.weight - b.weight);
                     context.commit('setBoard', response.data)
                     context.commit('setWaitingForResponse', false)
                     resolve()
