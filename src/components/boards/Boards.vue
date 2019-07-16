@@ -32,14 +32,25 @@
                 boards: {}
             }
         },
-        computed: {},
+        computed: {
+            waitingForResponse: {
+                get() {
+                    return this.$store.getters['boardModule/getWaitingForResponse']
+                },
+                set(value) {
+                    this.$store.commit('boardModule/setWaitingForResponse', value)
+                }
+            }
+        },
         methods: {
             async getBoards() {
+                this.waitingForResponse = true
                 axios.get(`${baseApiUrl}/board`)
                     .then(response => {
                             if (response && response.data) {
                                 this.boards = response.data
                             }
+                            this.waitingForResponse = false
                         }
                     )
             }

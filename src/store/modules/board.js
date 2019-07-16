@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {baseApiUrl, userKey} from "@/global"
+import {baseApiUrl} from "@/global"
 
 const state = {
     board: {},
@@ -21,24 +21,25 @@ const mutations = {
     },
     setWaitingForResponse(state, payload) {
         state.waitingForResponse = payload
-        //Se demarar mais que 3 segundos altera
-        setTimeout(()=>{
-            this.yourMethod()
-        },1000);
     }
 }
 
 
 const actions = {
     loadEagerFullBoard(context, payload) {
+        context.commit('setWaitingForResponse', true)
         context.commit('setBoard', {})
         return new Promise(async (resolve, reject) => {
             axios.get(`${baseApiUrl}/board/${payload.id}?eager=true`)
                 .then(response => {
                     context.commit('setBoard', response.data)
+                    context.commit('setWaitingForResponse', false)
                     resolve()
                 })
-                .catch(reject)
+                .catch(error => {
+                    context.commit('setWaitingForResponse', false)
+                    reject(error)
+                })
         })
     },
     loadBoard(context, payload) {

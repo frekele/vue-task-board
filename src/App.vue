@@ -3,7 +3,7 @@
         <Header title="Task Board"
                 :hideUserDropdown="!user.token"/>
         <Loading v-if="validatingToken || waitingForResponse"/>
-        <Content v-else/>
+        <Content v-show="!validatingToken && !waitingForResponse"/>
         <Footer/>
     </div>
 </template>
