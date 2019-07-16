@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 export const userKey = '__task_board_user'
-export const baseApiUrl = 'http://localhost:80'
+export const baseApiUrl = process.env.NODE_ENV === 'production' ? 'https://slim-task-board.herokuapp.com' : 'http://localhost:80'
 
 export function showError(e) {
     if (e && e.response && e.response.data) {
