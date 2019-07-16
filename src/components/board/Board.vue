@@ -4,7 +4,7 @@
             <b-row>
                 <b-col>
                     <router-link
-                            :to="'/board/'+ board.id +'/column/'+ board.columns[0].id +'/new-task'">
+                            :to="'/board/'+ id +'/column/'+ board.columns[0].id +'/new-task'">
                         <b-button variant="info">
                             <i class="fa fa-plus" aria-hidden="true"></i> Nova Tarefa
                         </b-button>
@@ -41,7 +41,7 @@
                                             <b-col style="text-align: center">
                                                 <strong>{{item.name}}</strong>
                                                 <router-link
-                                                        :to="'/board/'+ board.id +'/column/'+ board.columns[0].id +'/edit-task/'+ item.id">
+                                                        :to="'/board/'+ id +'/column/'+ board.columns[0].id +'/edit-task/'+ item.id">
                                                     <b-button variant="warning" class="float-right">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                                     </b-button>
@@ -71,9 +71,12 @@
                                         <b-row>
                                             <b-col style="text-align: center">
                                                 <strong>{{item.name}}</strong>
-                                                <b-button variant="warning" class="float-right">
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                </b-button>
+                                                <router-link
+                                                        :to="'/board/'+ id +'/column/'+ board.columns[1].id +'/edit-task/'+ item.id">
+                                                    <b-button variant="warning" class="float-right">
+                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                    </b-button>
+                                                </router-link>
                                             </b-col>
                                         </b-row>
                                         <b-row>
@@ -99,9 +102,12 @@
                                         <b-row>
                                             <b-col style="text-align: center">
                                                 <strong>{{item.name}}</strong>
-                                                <b-button variant="warning" class="float-right">
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                </b-button>
+                                                <router-link
+                                                        :to="'/board/'+ id +'/column/'+ board.columns[2].id +'/edit-task/'+ item.id">
+                                                    <b-button variant="warning" class="float-right">
+                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                    </b-button>
+                                                </router-link>
                                             </b-col>
                                         </b-row>
                                         <b-row>
