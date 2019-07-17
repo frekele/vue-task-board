@@ -12,7 +12,7 @@
                 </b-col>
                 <b-col>
                     <div class="page-title">
-                        <h2><i class="fa fa-th"></i> {{board.name}}</h2>
+                        <h2><i class="fa fa-th"></i> {{board.name}} -  #{{id}}</h2>
                         <span>{{board.description}}</span>
                     </div>
                 </b-col>
@@ -39,7 +39,7 @@
                                     <div class="draggable-item">
                                         <b-row>
                                             <b-col style="text-align: center">
-                                                <strong>{{item.name}}</strong>
+                                                <strong>#{{item.id}} - {{item.name}}</strong>
                                                 <router-link
                                                         :to="'/board/'+ id +'/column/'+ board.columns[0].id +'/edit-task/'+ item.id">
                                                     <b-button variant="warning" class="float-right">
@@ -70,7 +70,7 @@
                                     <div class="draggable-item">
                                         <b-row>
                                             <b-col style="text-align: center">
-                                                <strong>{{item.name}}</strong>
+                                                <strong>#{{item.id}} - {{item.name}}</strong>
                                                 <router-link
                                                         :to="'/board/'+ id +'/column/'+ board.columns[1].id +'/edit-task/'+ item.id">
                                                     <b-button variant="warning" class="float-right">
@@ -101,7 +101,7 @@
                                     <div class="draggable-item">
                                         <b-row>
                                             <b-col style="text-align: center">
-                                                <strong>{{item.name}}</strong>
+                                                <strong>#{{item.id}} - {{item.name}}</strong>
                                                 <router-link
                                                         :to="'/board/'+ id +'/column/'+ board.columns[2].id +'/edit-task/'+ item.id">
                                                     <b-button variant="warning" class="float-right">
