@@ -12,7 +12,7 @@
                 </b-col>
                 <b-col>
                     <div class="page-title">
-                        <h2><i class="fa fa-th"></i> {{board.name}} -  #{{id}}</h2>
+                        <h2><i class="fa fa-th"></i> {{board.name}} - #{{id}}</h2>
                         <span>{{board.description}}</span>
                     </div>
                 </b-col>
@@ -128,10 +128,8 @@
 </template>
 
 <script>
-    import {mapGetters} from "vuex"
     import {Container, Draggable} from "vue-smooth-dnd";
-    import {applyDrag, generateItems} from "@/utils/helpers";
-
+    import {applyDrag} from "@/utils/helpers";
 
     export default {
         name: 'Board',
