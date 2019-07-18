@@ -1,23 +1,42 @@
 <template>
     <div class="boards">
-        <h1>current: {{$mq}}</h1>
         <PageTitle icon="fa fa-th" main="Quadros de Tarefa" sub=""/>
         <b-container>
             <router-link to="/new-board">
-                <b-button variant="info" style="margin: 20px">
+                <b-button variant="info"
+                          style="margin: 10px"
+                          v-b-tooltip.hover
+                          title="Adicionar Novo Quadro">
                     <i class="fa fa-plus" aria-hidden="true"></i> Novo Quadro
                 </b-button>
             </router-link>
             <b-row>
                 <b-col class="col-boards" v-for="item in boards" v-bind:key="item.id">
-                    <b-card class="card-boards" bg-variant="secondary" text-variant="white" :title="item.name">
-                        <b-card-text>
-                            {{ item.description }}
-                        </b-card-text>
-                        <router-link :to="'/board/' + item.id">
-                            <b-button variant="primary">Abrir</b-button>
-                        </router-link>
+                    <b-card no-body class="card-boards overflow-hidden" bg-variant="primary" text-variant="white">
+                        <b-row no-gutters>
+                            <b-col md="12">
+                                <router-link :to="'/board/' + item.id" class="float-right">
+                                    <b-button variant="light">
+                                        <i class="fa fa-folder-open"
+                                           v-b-tooltip.hover
+                                           title="Abrir Quadro"
+                                           aria-hidden="true"></i></b-button>
+                                </router-link>
+                            </b-col>
+                            <b-col md="12">
+                                <h3>{{ item.name }}</h3>
+                            </b-col>
+                            <b-col md="12">
+                                <b-card-body>
+                                    <b-card-text>
+                                        {{ item.description }}
+                                    </b-card-text>
+                                </b-card-body>
+                            </b-col>
+
+                        </b-row>
                     </b-card>
+
                 </b-col>
             </b-row>
         </b-container>

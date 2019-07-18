@@ -1,5 +1,6 @@
 import 'font-awesome/css/font-awesome.css'
 import './style.css'
+
 import Vue from 'vue'
 
 import App from './App'
@@ -13,6 +14,7 @@ import './config/draggable'
 
 import store from './store/store'
 import router from './config/router'
+
 
 Vue.config.productionTip = false
 

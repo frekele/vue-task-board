@@ -32,7 +32,11 @@
                 <b-row>
                     <b-col cols="12" sm="6">
                         <router-link :to="isNewBoard ? '/' : '/board/' + id ">
-                            <b-button @click="confirmed = true" variant="secondary">
+                            <b-button
+                                    @click="confirmed = true"
+                                    variant="secondary"
+                                    v-b-tooltip.hover
+                                    title="Voltar para tela anterior">
                                 <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Voltar
                             </b-button>
                         </router-link>
@@ -43,14 +47,18 @@
                                   class="float-right"
                                   @click.prevent="clear"
                                   v-if="isNewBoard"
-                                  variant="danger">
+                                  variant="danger"
+                                  v-b-tooltip.hover
+                                  title="Limpar Formulário">
                             <span><i class="fa fa-eraser" aria-hidden="true"></i> Limpar</span>
                         </b-button>
                         <b-button type="submit"
                                   class="float-right"
                                   @click.prevent="remove"
                                   v-if="!isNewBoard"
-                                  variant="danger">
+                                  variant="danger"
+                                  v-b-tooltip.hover
+                                  title="Excluir Quadro">
                             <span><i class="fa fa-times" aria-hidden="true"></i> Excluir</span>
                         </b-button>
                         <b-button type="submit"
@@ -58,7 +66,9 @@
                                   @click.prevent="save"
                                   :disabled="!validation('name')"
                                   variant="primary"
-                                  style="margin-right: 10px">
+                                  style="margin-right: 10px"
+                                  v-b-tooltip.hover
+                                  title="Salvar Dados do Quadro de Tarefas">
                             <span><i class="fa fa-check" aria-hidden="true"></i> Salvar</span>
                         </b-button>
                     </b-col>

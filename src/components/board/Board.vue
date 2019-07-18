@@ -5,7 +5,10 @@
                 <b-col cols="12" lg="4" v-if="$mq === 'lg' || $mq === 'xl'">
                     <router-link
                             :to="'/board/'+ id +'/column/'+ board.columns[0].id +'/new-task'">
-                        <b-button variant="info">
+                        <b-button
+                                variant="info"
+                                  v-b-tooltip.hover
+                                  title="Criar Nova Tarefa">
                             <i class="fa fa-plus" aria-hidden="true"></i> Nova Tarefa
                         </b-button>
                     </router-link>
@@ -20,13 +23,21 @@
                     <router-link
                             :to="'/board/'+ id +'/column/'+ board.columns[0].id +'/new-task'"
                             v-if="$mq !== 'lg' && $mq !== 'xl'">
-                        <b-button variant="info" class="float-left">
+                        <b-button
+                                variant="info"
+                                class="float-left"
+                                v-b-tooltip.hover
+                                title="Criar Nova Tarefa">
                             <i class="fa fa-plus" aria-hidden="true"></i> Nova Tarefa
                         </b-button>
                     </router-link>
 
                     <router-link :to="'/edit-board/'+ id">
-                        <b-button variant="warning" class="float-right">
+                        <b-button
+                                variant="warning"
+                                class="float-right"
+                                v-b-tooltip.hover
+                                title="Editar Quadro">
                             <i class="fa fa-pencil" aria-hidden="true"></i> Editar Quadro
                         </b-button>
                     </router-link>
@@ -51,7 +62,11 @@
                                                 <strong>#{{item.id}} - {{item.name}}</strong>
                                                 <router-link
                                                         :to="'/board/'+ id +'/column/'+ board.columns[0].id +'/edit-task/'+ item.id">
-                                                    <b-button variant="warning" class="float-right">
+                                                    <b-button
+                                                            variant="warning"
+                                                            class="float-right"
+                                                            v-b-tooltip.hover
+                                                            title="Editar Tarefa">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                                     </b-button>
                                                 </router-link>
