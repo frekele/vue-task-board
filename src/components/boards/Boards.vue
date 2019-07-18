@@ -1,5 +1,6 @@
 <template>
     <div class="boards">
+        <h1>current: {{$mq}}</h1>
         <PageTitle icon="fa fa-th" main="Quadros de Tarefa" sub=""/>
         <b-container>
             <router-link to="/new-board">
@@ -8,7 +9,7 @@
                 </b-button>
             </router-link>
             <b-row>
-                <b-col class="col-boards" cols="auto" md="auto" v-for="item in boards" v-bind:key="item.id">
+                <b-col class="col-boards" v-for="item in boards" v-bind:key="item.id">
                     <b-card class="card-boards" bg-variant="secondary" text-variant="white" :title="item.name">
                         <b-card-text>
                             {{ item.description }}

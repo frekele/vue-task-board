@@ -31,7 +31,7 @@
                 </b-form-group>
                 <hr>
                 <b-row>
-                    <b-col>
+                    <b-col cols="12" sm="6">
                         <router-link :to="'/board/' + boardId">
                             <b-button @click="confirmed = true" variant="secondary">
                                 <i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Voltar
@@ -39,7 +39,7 @@
                         </router-link>
                     </b-col>
 
-                    <b-col>
+                    <b-col cols="12" sm="6" :style=" ($mq === 'xs') ? 'margin-top: 20px;' : ''">
                         <b-button type="reset"
                                   class="float-right"
                                   @click.prevent="clear"

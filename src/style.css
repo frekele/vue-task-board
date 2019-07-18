@@ -18,6 +18,16 @@ body {
 }
 
 
+/*@media (min-width: 700px) {*/
+/*    #app {*/
+/*        grid-template-rows: 60px 1fr 40px;*/
+/*        grid-template-columns: 300px 1fr;*/
+/*    }*/
+
+/*}*/
+
+
+
 /*Header*/
 .header {
     grid-area: header;
