@@ -70,7 +70,7 @@ const actions = {
         context.commit('boardModule/setWaitingForResponse', true, {root: true})
         return new Promise((resolve, reject) => {
             axios.delete(`${baseApiUrl}/task/${payload.id}`)
-                .then(response => {
+                .then(() => {
                     context.commit('setTask', {})
                     context.commit('boardModule/setWaitingForResponse', false, {root: true})
                     resolve()

@@ -154,8 +154,7 @@
                             }
                         }
                     })
-                    .catch(err => {
-                        // An error occurred
+                    .catch(() => {
                     })
             },
             clear(event) {

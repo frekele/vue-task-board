@@ -2,7 +2,7 @@
     <div class="board" style="min-width: 400px">
         <b-container v-if="board.columns">
             <b-row>
-                <b-col>
+                <b-col cols="12" lg="4" v-if="$mq === 'lg' || $mq === 'xl'">
                     <router-link
                             :to="'/board/'+ id +'/column/'+ board.columns[0].id +'/new-task'">
                         <b-button variant="info">
@@ -10,13 +10,21 @@
                         </b-button>
                     </router-link>
                 </b-col>
-                <b-col>
+                <b-col cols="12" lg="4">
                     <div class="page-title">
                         <h2><i class="fa fa-th"></i> {{board.name}} - #{{id}}</h2>
                         <span>{{board.description}}</span>
                     </div>
                 </b-col>
-                <b-col>
+                <b-col cols="12" lg="4" :style=" ($mq !== 'lg' && $mq !== 'xl') ? 'margin-top: 10px;' : ''">
+                    <router-link
+                            :to="'/board/'+ id +'/column/'+ board.columns[0].id +'/new-task'"
+                            v-if="$mq !== 'lg' && $mq !== 'xl'">
+                        <b-button variant="info" class="float-left">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Nova Tarefa
+                        </b-button>
+                    </router-link>
+
                     <router-link :to="'/edit-board/'+ id">
                         <b-button variant="warning" class="float-right">
                             <i class="fa fa-pencil" aria-hidden="true"></i> Editar Quadro
@@ -29,10 +37,11 @@
 
         <b-container v-if="board.columns">
             <b-row>
-                <b-col>
+                <b-col cols="12" lg="4">
                     <b-card bg-variant="light" :header="board.columns[0].name" class="text-center">
                         <b-card-text>
                             <Container group-name="board-columns"
+                                       :orientation="'vertical'"
                                        :get-child-payload="getPayloadColumns1"
                                        @drop="onDrop(0, $event)">
                                 <Draggable v-for="item in board.columns[0].tasks" :key="item.id">
@@ -60,10 +69,11 @@
                     </b-card>
                 </b-col>
 
-                <b-col>
+                <b-col cols="12" lg="4">
                     <b-card bg-variant="light" :header="board.columns[1].name" class="text-center">
                         <b-card-text>
                             <Container group-name="board-columns"
+                                       :orientation="'vertical'"
                                        :get-child-payload="getPayloadColumns2"
                                        @drop="onDrop(1, $event)">
                                 <Draggable v-for="item in board.columns[1].tasks" :key="item.id">
@@ -91,10 +101,11 @@
                     </b-card>
                 </b-col>
 
-                <b-col>
+                <b-col cols="12" lg="4">
                     <b-card bg-variant="light" :header="board.columns[2].name" class="text-center">
                         <b-card-text>
                             <Container group-name="board-columns"
+                                       :orientation="'vertical'"
                                        :get-child-payload="getPayloadColumns3"
                                        @drop="onDrop(2, $event)">
                                 <Draggable v-for="item in board.columns[2].tasks" :key="item.id">

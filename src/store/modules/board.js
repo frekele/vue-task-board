@@ -96,7 +96,7 @@ const actions = {
         context.commit('setWaitingForResponse', true)
         return new Promise((resolve, reject) => {
             axios.delete(`${baseApiUrl}/board/${payload.id}`)
-                .then(response => {
+                .then(() => {
                     context.commit('setBoard', {})
                     context.commit('setWaitingForResponse', false)
                     resolve()
